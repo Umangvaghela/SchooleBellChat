@@ -95,13 +95,11 @@ Function Insert_Employee_Record($insert_data) {
 	$gender = $insert_data['Gender'];
 	$sqlall = "SELECT * FROM employee_data";
 	if($res = $db->query($sqlall)->fetch()){ 
-		var_dump('hello');
 		$sql = "SELECT * FROM employee_data where Employee_Firstname='$firstname'";
 		if($db->query($sql)->fetch()!=NULL and $db->query($sql)->fetch()!='' ) 
 		{
 			echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Firstname Already Exist</div>"; 
 		} else {
-			var_dump('hello1');
 			$get_query = "SELECT Employee_ID FROM employee_data ORDER BY Employee_ID DESC LIMIT 1";
 			if ($row = $db->query($get_query)->fetch()) {
 				$lastid = $row['Employee_ID'] + 1;	
@@ -116,5 +114,64 @@ Function Insert_Employee_Record($insert_data) {
 		echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Employee Succesfully Register</div>"; 
 	}
 }
-
-?>
+/**
+* Function For Manager Record Information
+* Parameter : $_POST DATA
+* Return Message ( String )
+*/
+Function Insert_Manager_Registration_Detail_Record($insert_data){
+	global $db;
+	$firstname = $insert_data['Firstname'];
+	$Department = $insert_data['Department'];
+	$Password = $insert_data['password'];
+	$hashed_password = password_hash($Password, PASSWORD_DEFAULT);
+	$sqlall = "SELECT * FROM manager";
+	if($res = $db->query($sqlall)->fetch()){ 
+		$sql = "SELECT * FROM manager where Manager_name='$firstname'";
+		if($db->query($sql)->fetch()!=NULL and $db->query($sql)->fetch()!='' ) 
+		{
+			echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Manager Name Already Exist</div>"; 
+		} else {
+			$get_query = "SELECT Manager_ID FROM manager ORDER BY Manager_ID DESC LIMIT 1";
+			if ($row = $db->query($get_query)->fetch()) {
+				$lastid = $row['Manager_ID'] + 1;	
+				$sql = "insert into manager values ($lastid,'$firstname','$Department','$hashed_password')";
+				$db->insertRow($sql);
+				echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Manager Succesfully Register</div>"; 
+			}
+		}
+	} else { 
+		$sql = "insert into Manager values ('1','$firstname','$Department','$hashed_password' )";
+		$db->insertRow($sql);
+		echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Manager Succesfully Register</div>"; 
+	}
+}
+/**
+* Function for login( Manager )
+* Parameter: $_POST DATA
+* Return string
+*/
+Function manager_login($check_detail)
+{
+	global $db;
+	$firstname = $check_detail['Manager_name'];
+	$password = $check_detail['password'];
+	$chenamesql = "SELECT * FROM manager where Manager_name='$firstname'";
+	if($db->query($chenamesql)->fetch()!=NULL and $db->query($chenamesql)->fetch()!='' ) 
+	{
+		$row = $db->query($chenamesql)->fetch();
+		if (password_verify($password, $row['password'])) { 
+			echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'> Login Succesfuly</div>"; 
+			$_SESSION["username"] = $row['Manager_name'];
+			header("Location: searchlist.php");
+		 } else {
+			 echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Enter Valid Manager Name and password</div>"; 	 
+		 }
+		
+		echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Enter Valid Manager Name and password</div>"; 	
+	} 
+	else 
+	{
+		echo "<div style='text-align: center;background: red;width: 50%;margin: 3% 3% -3% 28%;padding: 10px;'>Enter Valid Manager Name and password</div>"; 	
+	} 	
+}

@@ -39,7 +39,9 @@ $db->createTable($table, $sql);
 $table="Manager";
 $sql = "CREATE TABLE Manager (
 		Manager_ID int(11),
-		Manager_name varchar(255) ,
+		Manager_name varchar(255),
+		Department_name varchar(255),
+		password varchar(255),
 		primary key(Manager_ID)
 	)";  
 $db->createTable($table, $sql);

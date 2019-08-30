@@ -1,7 +1,11 @@
 <?php
+	session_start();
 	include "MySQLDB.php";
 	include "db.php";
 	require('Function.php');
+	if($_SESSION["username"] == ''){
+		header("Location: login.php");
+	}
 	function employee_result_list($data) { 
 		 $result = search_result_data($data);
 		 return $result;
@@ -34,7 +38,7 @@
 			<ul class="navbar-nav mr-auto">
 			  <li class="nav-item active">
 				<a class="nav-link" href="#">
-					<a class="nav-link" href="logout.php">Search List</a>
+					<a class="nav-link" href="searchlist.php">Search List</a>
 				</a>
 			  </li>
 			  <li class="nav-item">
@@ -98,6 +102,7 @@
 											<tbody>
 		
 											<?php 
+												if($result!=NULL || $result!='') {
 												foreach( $result as $result_list) {?>
 													<tr>
 														<td><?php  echo $result_list['Employee_Firstname'];?></td>
@@ -108,6 +113,7 @@
 														<td><?php  echo $result_list['Manager'];?></td>
 													</tr>	
 												<?php } 
+												}
 											?>		
 											</tbody>
 										</table>
