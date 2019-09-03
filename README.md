@@ -7,15 +7,18 @@ Web-based employee management system
 3) Docker
 
 #Installation
-1) Download code form git repository
-2) Use Docker command to set up server
-3) copy server link and paste on browser:
-4) Its Working
+1 ) Download code form git repository OR Sourece Code
+2 ) Start Apache Server and MySQLI Server and Database
+2 ) For MYSQLi Connection: Start With open Config File.
+3 ) Succesfuly database create after ( Register as Employee or Manager)
+4 ) Only Managers are able to show search list functionality.  
 
-#How Its Work
-Three Page
-1) Registration
+
+Requirments & Secnerio:
+1) Employee Registration
  --New Employee signUp by fill registration form( No DUPLICATE username)
+2 ) Manager Registration
+New Manager signUp by fill registration form( No DUPLICATE username)
 2) Login
   --Login as CEO or Manager to check Employee Report
 3) Search List page
