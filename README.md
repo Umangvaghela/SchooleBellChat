@@ -3,8 +3,8 @@ Web-based employee management system
 
 #Pre-Requirment
 1) PHP 7
-2) MYSQL
-3) Docker
+2) MYSQLi
+3) Composer-- For PHPunit Testing
 
 #Installation
 1 ) Download code form git repository OR Sourece Code
@@ -13,6 +13,11 @@ Web-based employee management system
 3 ) Succesfuly database create after ( Register as Employee or Manager)
 4 ) Only Managers are able to show search list functionality.  
 
+
+How to Test PhpUnitTesting:
+-- Install composer by -- composer require --dev phpunit/phpunit ^7 command
+-- Check Version by  ./vendor/bin/phpunit --version
+-- ./vendor/bin/phpunit --bootstrap vendor/autoload.php --(Write phpfile name for unittest)
 
 Requirments & Secnerio:
 1) Employee Registration
